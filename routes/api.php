@@ -32,9 +32,12 @@ Route::post('admin/register',[AdminController::class,'register']);
 
 
 Route::middleware(['auth:sanctum', 'type.user'])->group(function () {
-    Route::get('/users/orders', function(Request $request){
+    Route::get('/users', function(Request $request){
         
-        return 'logout';
+        return $request->user();
+    });
+    Route::get('/users/logout', function(Request $request){
+        return $request->user()->currentAccessToken()->delete();
     });
 });
 // Only for admins
